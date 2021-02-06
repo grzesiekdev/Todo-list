@@ -1,0 +1,30 @@
+html, body{
+    background-color: #f0f0f0;
+}
+
+main{
+    margin: 30px auto;
+    display: table;
+    width: 100%;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+}
+
+nav{
+    padding: 30px;
+}
+.result{
+    width: 100%;
+    font-size: 17px;
+    padding: 20px 10px;
+    background-color: #4010a4;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.delete-task{
+    float: right;
+}
