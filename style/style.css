@@ -23,8 +23,20 @@ nav{
     background-color: #4010a4;
     color: white;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .delete-task{
-    float: right;
+    position: absolute;
+    right: 15px;
+}
+
+select{
+    padding: 5px;
+}
+
+.date{
+    position: absolute;
+    right: 90px;
 }

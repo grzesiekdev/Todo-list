@@ -7,19 +7,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../style/style.css" type="text/css">
-    <script type="text/javascript" src="../scripts/script.js"></script>
+    <script type="text/javascript" src="../scripts/ajax_calls.js"></script>
 </head>
 <body>
-<?php include '../src/todo.php'; ?>
+<?php include '../src/functions.php'; ?>
+<?php $categories = get_categories(); ?>
     <nav>
-        <form method="POST" action="#" class="form">
-            Task: <input type="text" name="task" />
-            <button type="submit" name="submit" value="Submit" class="btn btn-primary"> Send </button>
-        </form>
-        <?php add_task(); ?>
+        <div class="wrapper">
+            <form method="POST" class="form" id="task_form" style="width:60%; float: left;">
+                Task: <input type="text" name="task" id="task"/>
+                Category: <select name="category" id="categories" class="form-select form-select-sm" aria-label=".form-select-sm example" value="choose">
+                    <option value="choose" hidden>Choose category of your task</option>
+                    <?php
+                    foreach ($categories as $val){
+                        echo '<option value="' . $val . '">' . $val . '</option>';
+                    }
+                    ?>
+                </select>
+                <button type="submit" name="submit" value="Submit" class="btn btn-primary" onclick="add_task(); get_tasks();"> Add task </button>
+            </form>
+            <form method="POST" class="form" style="float: right; width: 40%;" id="cat_form">
+                Category: <input type="text" name="added_category" id="added_category" />
+                <button type="submit" name="submit" value="Submit" class="btn btn-primary" onclick="add_category()"> Add category </button>
+            </form>
+        </div>
+        <div id="message"></div>
     </nav>
-    <main>
-        <?php get_tasks(); ?>
-    </main>
+    <main onload="get_tasks();"></main>
 </body>
 </html>
