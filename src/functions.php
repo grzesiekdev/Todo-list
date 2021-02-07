@@ -41,7 +41,8 @@ function get_tasks(){
         if($result = $GLOBALS['mysqli'] -> query('SELECT * FROM todolist.tasks WHERE tasks.Category = "' . $val . '";')){
             echo '<ul>';
             while($row = $result -> fetch_row()){
-                echo '<li class="result" id="task_id_' . $row[0] . '">' . $row[0] . '. ' . $row[1] . ' <div class="date"> ' . $row[2] . '</div><button class="delete-task btn btn-danger" id="' . $row[0] . '" onclick="delete_task()">X</button></li>';
+                $task = new Task($row[1], $row[2], $val);
+                echo $task->render_task($row[0]);
             }
             echo '</ul></div>';
         } else {
@@ -84,11 +85,16 @@ function delete_category(){
 }
 function add_category(){
     if(isset($_POST['added_category']) && !empty($_POST['added_category'])){
-        $query = 'INSERT INTO todolist.categories (Name) VALUES("' . $_POST["added_category"] . '");';
-        if($GLOBALS['mysqli'] -> query($query) === TRUE){
-            echo '<span style="color: green;">Added category</span>';
-        } else{
-            echo "Error occurred during adding category!" . $GLOBALS['mysqli'] -> error;
+        $categories = get_categories();
+        if(in_array($_POST['added_category'], $categories)){
+            echo "This category already exists!";
+        } else {
+            $query = 'INSERT INTO todolist.categories (Name) VALUES("' . $_POST["added_category"] . '");';
+            if($GLOBALS['mysqli'] -> query($query) === TRUE){
+                echo '<span style="color: green;">Added category</span>';
+            } else{
+                echo "Error occurred during adding category!" . $GLOBALS['mysqli'] -> error;
+            }
         }
     } else {
         echo '<span style="color: red">You have to provide category name!</span>';
