@@ -1,3 +1,21 @@
+$(document).ready(function(){
+    $('#cat_form').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '../src/check_func.php',
+            data: {added_category: $("#added_category").val(), func: "add_category"},
+            success: function (data) {
+                $('.toast').addClass('fadeIn');
+                window.setTimeout(function(){location.reload()},1000)
+            },
+            error: function (data, text, errorThrown) {
+                alert("ERROR");
+            },
+        });
+    });
+});
+
 function delete_task(){
     let id = $(event.target)[0].id;
     $.ajax({
@@ -21,26 +39,14 @@ function delete_category(){
         data: {cat_id: $(event.target)[0].id, func: "delete_category"},
         success: function(result){
             $("#cat_"+cat_id).remove();
+            location.reload();
         },
         error: function (data){
             console.log(data);
         }
     });
 }
-function add_category(){
-    $.ajax({
-        type: 'POST',
-        url: '../src/check_func.php',
-        data: {added_category: $("#added_category").val(), func: "add_category"},
-        success: function(data){
-            $('#message').html(data);
-            document.getElementById("cat_form").reset();
-        },
-        error: function (data, text,errorThrown) {
-            alert("ERROR");
-        },
-    });
-}
+
 
 function add_task(){
     $.ajax({

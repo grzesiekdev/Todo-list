@@ -13,27 +13,46 @@
 <body>
 <?php include '../src/functions.php'; ?>
 <?php $categories = get_categories(); ?>
-    <nav>
-        <div class="wrapper">
-            <form method="POST" class="form" id="task_form" style="width:60%; float: left;">
-                Task: <input type="text" name="task" id="task"/>
-                Category: <select name="category" id="categories" class="form-select form-select-sm" aria-label=".form-select-sm example" value="choose">
-                    <option value="choose" hidden>Choose category of your task</option>
-                    <?php
-                    foreach ($categories as $val){
-                        echo '<option value="' . $val . '">' . $val . '</option>';
-                    }
-                    ?>
-                </select>
-                <button type="submit" name="submit" value="Submit" class="btn btn-primary" onclick="add_task(); get_tasks();"> Add task </button>
-            </form>
-            <form method="POST" class="form" style="float: right; width: 40%;" id="cat_form">
-                Category: <input type="text" name="added_category" id="added_category" />
-                <button type="submit" name="submit" value="Submit" class="btn btn-primary" onclick="add_category()"> Add category </button>
-            </form>
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <img src="..." class="rounded mr-2" alt="...">
+        <strong class="mr-auto">Bootstrap</strong>
+        <small class="text-muted">11 mins ago</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        Hello, world! This is a toast message.
+    </div>
+</div>
+<div id="message"></div>
+    <div class="container-1">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST" class="form" id="task_form">
+                    Task:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="task" id="task"/>
+                    Category: <select name="category" id="categories" class="form-select form-select-sm" aria-label=".form-select-sm example" value="choose">
+                        <option value="choose" hidden>Choose category of your task</option>
+                        <?php
+                        foreach ($categories as $val){
+                            echo '<option value="' . $val . '">' . $val . '</option>';
+                        }
+                        ?>
+                    </select>
+                    <button type="submit" name="submit" value="Submit" class="btn btn-primary" onclick="add_task(); get_tasks();"> Add task </button>
+                </form>
+            </div>
+            <div class="col-12">
+                <form method="POST" class="form" id="cat_form">
+                    Category: <input type="text" name="added_category" id="added_category" />
+                    <button type="submit" name="submit" value="Submit" class="btn btn-primary"> Add category </button>
+                </form>
+            </div>
         </div>
-        <div id="message"></div>
-    </nav>
-    <main onload="get_tasks();"></main>
+        <div class="row">
+            <main onload="get_tasks();"></main>
+        </div>
+    </div>
 </body>
 </html>

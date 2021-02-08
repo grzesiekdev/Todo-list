@@ -9,7 +9,8 @@ $GLOBALS['mysqli'] = new mysqli($access['host'], $access['login'], $access['pass
 
 function add_task(){
     if(isset($_POST['task']) && !empty($_POST['task'])){
-        if(isset($_POST['category']) && $_POST['category'] != '' && $_POST['category'] != 'choose'){
+        $categories = get_categories();
+        if(isset($_POST['category']) && $_POST['category'] != '' && $_POST['category'] != 'choose' && in_array($_POST['category'], $categories)){
             $category = $_POST['category'];
         } else {
             echo '<span style="color: red;">You must choose category!</span>';
@@ -42,7 +43,9 @@ function get_tasks(){
             echo '<ul>';
             while($row = $result -> fetch_row()){
                 $task = new Task($row[1], $row[2], $val);
+                echo '<div class="row">';
                 echo $task->render_task($row[0]);
+                echo '</div>';
             }
             echo '</ul></div>';
         } else {
@@ -86,7 +89,8 @@ function delete_category(){
 function add_category(){
     if(isset($_POST['added_category']) && !empty($_POST['added_category'])){
         $categories = get_categories();
-        if(in_array($_POST['added_category'], $categories)){
+        $categories = array_map('strtolower', $categories);
+        if(in_array(strtolower($_POST['added_category']), $categories)){
             echo "This category already exists!";
         } else {
             $query = 'INSERT INTO todolist.categories (Name) VALUES("' . $_POST["added_category"] . '");';

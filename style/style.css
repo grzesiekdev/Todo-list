@@ -1,5 +1,5 @@
 html, body{
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
 }
 
 main{
@@ -27,16 +27,27 @@ nav{
     align-items: center;
 }
 
-.delete-task{
-    position: absolute;
-    right: 15px;
-}
-
-select{
+select {
     padding: 5px;
 }
 
-.date{
-    position: absolute;
-    right: 90px;
+.container-1{
+    background: #f0f0f0;
+    border: 1px solid black;
+    margin: 100px;
+    padding: 20px;
+}
+
+.row{
+    margin: 0;
+}
+.toast {
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+    -moz-transition: opacity 500s ease-in-out;
+    -webkit-transition: opacity 500ms ease-in-out;
+}
+
+.fadeIn {
+    opacity:1;
 }
